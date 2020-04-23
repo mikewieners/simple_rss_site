@@ -25,7 +25,10 @@ SECRET_KEY = 'f*m%fn*a&31h5waiiw!65en=$q=%l@ay*a7@oa+i^!i_k@c_i8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.mikewieners.com',
+    '*'
+]
 
 
 # Application definition
@@ -78,7 +81,7 @@ WSGI_APPLICATION = 'simple_rss_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'simple_rss'),
     }
 }
 

@@ -1,0 +1,11 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+{% if feed_list %}
+           <ul>
+    {% for feed in feed_list %}
+           <li><a href="{% url 'detail' feed.id %}">{{ feed.name }}</a></li>
+    {% endfor %}
+       </ul>
+{% else %}
+           <p>No feeds are available.</p>
+{% endif %}
