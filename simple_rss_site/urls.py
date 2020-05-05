@@ -21,5 +21,7 @@ from feeds import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('feeds/', include('feeds.urls')),
+    path('login/', include('feeds.urls')),
+    path('logout/', include('feeds.urls')),
     path('', views.index)
 ]
