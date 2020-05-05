@@ -5,27 +5,78 @@
 {% endblock custom_styles %}
 {% block body %}
     <form class="form-signin" method="POST">{% csrf_token %}
+
         <div class="text-center mb-4">
-            <img class="mb-4" src="https://image.flaticon.com/icons/svg/25/25234.svg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">FeedMeRSS</h1>
-        </div>
+            {% if request_type == 'change_password' %}
+                <img class="mb-4"
+                     src="https://cdn2.iconfinder.com/data/icons/userweb2/256x256/icontexto-user-web20-rss.png" alt=""
+                     width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">{{ user.username }}</h1>
+            {% else %}
 
+                <img class="mb-4" src="https://image.flaticon.com/icons/svg/25/25234.svg" alt="" width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">FeedMeRSS</h1>
+            {% endif %}
+        </div>
+        {% if error_message %}
+            <p class="mt-5 mb-3 text-center">{{ error_message }}</p>
+        {% endif %}
+        {% if request_type != 'change_password' %}
+            <div class="form-label-group">
+                <input name="username" type="email" id="inputEmail" class="form-control" placeholder="Email address"
+                       required autofocus>
+                <label for="inputEmail">Email address</label>
+            </div>
+        {% endif %}
         <div class="form-label-group">
-            <input name="username" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <label for="inputEmail">Email address</label>
-        </div>
-
-        <div class="form-label-group">
-            <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <label for="inputPassword">Password</label>
-        </div>
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
+            {% if request_type == "change_password" %}
+                <div class="form-label-group">
+                    <input name="old_password" type="password" id="currentPassword" class="form-control"
+                           placeholder="Current Password"
+                           required>
+                    <label for="currentPassword">Current Password</label>
+                </div>
+                <div class="form-label-group">
+                    <input name="new_password1" type="password" id="inputPassword" class="form-control"
+                           placeholder="Password"
+                           required>
+                    <label for="inputPassword">Create New Password</label>
+                </div>
+                <div class="form-label-group">
+                    <input name="new_password2" type="password" id="confirmPassword" class="form-control"
+                           placeholder="Password"
+                           required>
+                    <label for="confirmPassword">Confirm New Password</label>
+                </div>
+            {% elif request_type == "register_user" %}
+                <div class="form-label-group">
+                    <input name="password1" type="password" id="inputPassword" class="form-control"
+                           placeholder="Password"
+                           required>
+                    <label for="inputPassword">Create Password</label>
+                </div>
+                <div class="form-label-group">
+                    <input name="password2" type="password" id="confirmPassword" class="form-control"
+                           placeholder="Password"
+                           required>
+                    <label for="confirmPassword">Confirm Password</label>
+                </div>
+            {% else %}
+                <div class="form-label-group">
+                    <input name="password" type="password" id="inputPassword" class="form-control"
+                           placeholder="Password"
+                           required>
+                    <label for="inputPassword">Password</label>
+                </div>
+            {% endif %}
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2019</p>
+        {% if context.request_type == 'login' %}
+            <p class="mt-5 mb-3 text-center">Not registered? <a href="{% url 'register' %}">Sign Up!</a></p>
+        {% elif request_type == "register_user" %}
+            <p class="mt-5 mb-3 text-center">Already registered? <a href="{% url 'login' %}">Log In!</a></p>
+        {% endif %}
+
     </form>
+
 {% endblock %}

@@ -23,5 +23,7 @@ urlpatterns = [
     path('feeds/', include('feeds.urls')),
     path('login/', include('feeds.urls')),
     path('logout/', include('feeds.urls')),
+    path('register/', include('feeds.urls')),
+    path('user-profile/', include('feeds.urls')),
     path('', views.index)
 ]
