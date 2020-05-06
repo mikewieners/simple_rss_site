@@ -10,9 +10,10 @@
                             <a href="{{ article.url }}">{{ article.title }}</a>
                         </h2>
                         <p>
-                            <script>$('.utcdate').localTimeFromUTC('{{ article.published_at_datetime }}');</script>
-                            Published Date - <span class="utcdate">{{ article.published_at_datetime }}</span>
-                            Published Date - <script>localTimeFromUTC({{ article.published_at_datetime }});</script>
+                            Published Date - {{ article.published_at_datetime }}
+                        </p>
+                        <p>
+                            Author - {{ article.author }}
                         </p>
                         <div class="article-detail">
                             {% autoescape off %}

@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, AuthenticationForm
-from django.http import HttpResponse
 
 from feeds.feed_handler import FeedHandler
 
@@ -34,15 +33,17 @@ def login_request(request):
     context = {'request_type': 'login'}
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect("index")
-        else:
-            context['error'] = {'Wrong credintials'}
-            return render(request, 'feeds/user-profile.html', {'context': context})
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                return redirect("index")
+            else:
+                context['error'] = {'Wrong credintials'}
+                return render(request, 'feeds/user-profile.html', {'context': context})
+        context['error_message'] = form.errors
     return render(request, 'feeds/user-profile.html', {'context': context})
 
 
