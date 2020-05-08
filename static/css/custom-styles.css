@@ -1,14 +1,5 @@
-.article-detail img {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-}
-
 html {
     background-image: linear-gradient(-90deg, white, darkorange);
-}
-
-html {
     position: relative;
     min-height: 100%;
 }
@@ -17,6 +8,72 @@ body {
     background-color: transparent;
     margin-bottom: 60px; /* Margin bottom by footer height */
     padding-top: 5rem;
+}
+
+.post-preview {
+    background-color: azure;
+}
+
+.post-title, .article_detail p, .article-detail div, .article-detail a, .post-preview p, .article-detail h3 {
+    padding: 7px;
+}
+
+.article-thumbnail, .feed-logo {
+    width: 100%;
+}
+
+.feed-logo-container {
+    height: 0;
+    overflow: hidden;
+    padding-top: 56.25%;
+    background: #212529;
+    position: relative;
+}
+
+.feed-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.feed-logo h1{
+    font-size: 5vw;
+    color: darkorange;
+}
+
+#input-feed-url {
+    height: 100%;
+}
+
+#subscribe-to-feed {
+    position: fixed;
+    bottom: 5vw;
+    right: 5vw;
+}
+
+iframe {
+    width: 100%;
+}
+
+.article-break {
+    border-top: 10px solid #343a40;
+}
+
+/*.alt-logo{*/
+/*    padding-top: 56.25%;*/
+/*    position: relative;*/
+/*}*/
+
+.alt-logo h2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 .footer {

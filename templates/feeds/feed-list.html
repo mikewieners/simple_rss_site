@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block body %}
+    {% if request_type == 'subscribe' %}
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Subscribe to Feeds</h1>
+                <p class="lead">Enter a URL in the box below or click one of the feeds to preview the contents. If you
+                    like what you see, click the 'Subscribe' button at the bottom of the page.</p>
+                <form method="POST">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input name="url" class="form-control" id="input-feed-url"
+                                   placeholder="https://www.example.com/feed" required>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-lg btn-primary" href="/docs/4.4/components/navbar/" type="submit">
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                {% if feed_list %}
+                    {% for feed in feed_list %}
+                        <div class="post-preview">
+                            <div class="feed-logo-container">
+                                {% if feed.logo %}
+                                    <img class="feed-logo" src="{{ feed.logo }}">
+                                {% else %}
+                                    <div class="feed-logo">
+                                        <h1>{{ feed.name }}</h1>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <a href="{% url 'detail' feed.id %}">
+                                <h2 class="post-title">
+                                    {{ feed.name }}
+                                </h2>
+                            </a>
+                            <p>
+                                {{ feed.subtitle }}
+                            </p>
+                        </div>
+                        <br>
+                    {% endfor %}
+                {% else %}
+                    <div class="post-preview">
+                        <div class="feed-logo-container">
+                            <img class="feed-logo"
+                                 src="https://cdn.hockeycanada.ca/hockey-canada/Stock/640x360/Misc/rss_640.jpg">
+                        </div>
+                        <h2 class="post-title">
+                            You have not subscribed to any feeds.
+                        </h2>
+                        <div class="article-detail">
+                            <a href="{% url 'subscribe' %}">
+                                <h3>
+                                    Add some now!
+                                </h3>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock body %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-preview">
+                    <div class="feed-logo-container">
+                        {% if feed.logo %}
+                            <img class="feed-logo" src="{{ feed.logo }}">
+                        {% else %}
+                            <div class="feed-logo">
+                                <h1>{{ feed.name }}</h1>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <h2 class="post-title">{{ feed.name }}</h2>
+                    <p>This feed has {{ feed_detail.article_count }} articles and of those, there is an image included
+                        with {{ feed_detail.thumbnail_count }}. The range of published dates is from
+                        {{ feed_detail.min_pub_date }} to {{ feed_detail.max_pub_date }}</p>
+                </div>
+                <br>
+                {% if feed_detail %}
+                    {% for article in feed_detail.processed_feed %}
+                        <div class="post-preview">
+                            {% if article.thumbnail %}
+                                {% autoescape off %}
+                                    {{ article.thumbnail }}
+                                {% endautoescape %}
+                            {% endif %}
+                            <h2 class="post-title">
+                                <a href="{{ article.url }}">{{ article.title }}</a>
+                            </h2>
+                            <p>
+                                <strong>Published {{ article.published_at_datetime }} by {{ article.author }}</strong>
+                            </p>
+                            <div class="article-detail">
+                                {% autoescape off %}
+                                    {{ article.summary }}
+                                {% endautoescape %}
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                {% else %}
+                    <div class="post-preview">
+                        <h2 class="post-title">
+                            There are no articles in this feed.
+                        </h2>
+                        <h3 class="post-subtitle">
+                            <a href="{% url 'index' %}">Check out your other feeds!</a>
+                        </h3>
+                    </div>
+                    </div>
+                {% endif %}
+            {% if request.path == '/feeds/preview/' or request_type == 'subscribe' %}
+                <form id="subscribe-to-feed" method="POST">{% csrf_token %}
+                    <button class="btn btn-lg btn-success" type="submit">Subscribe</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+
+
+{% endblock body %}
